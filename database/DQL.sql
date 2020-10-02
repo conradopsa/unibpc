@@ -1,45 +1,49 @@
+use unibpc;
 
-SELECT distinct cpf
-FROM pessoa
+-- Nome de todos alunos
+SELECT nome 
+FROM aluno a 
+    JOIN pessoa pe ON a.cpfPessoa = pe.cpf;
 
-SELECT * FROM aluno, professor
+-- Nome de todos professores
+SELECT nome 
+FROM professor pr 
+    JOIN pessoa pe ON pr.cpfPessoa = pe.cpf;
 
-SELECT f.* FROM pessoa f, professor p WHERE f.cpf = p.cpf
+-- Nome de todos os alunos matriculados no curso de Ciência da Computação
+SELECT pe.nome 
+FROM aluno a 
+	JOIN pessoa pe ON a.cpfPessoa = pe.cpf
+    JOIN alunocurso ac ON ac.alunoMatricula = a.matricula
+    JOIN curso c ON c.id = ac.cursoID
+WHERE c.nome = "Ciência da Computação";
 
-SELECT nome, cpf FROM pessoa WHERE endereco = "Rua Plínio de Oliveira"
+-- Quantidade de alunos por turma
+SELECT t.numero, count(*) as 'quantidade de aluno'
+FROM 
+	turma t
+    JOIN turmaAluno ta ON ta.numeroTurma = t.numero
+GROUP BY t.numero;
 
-SELECT nome, cpf FROM pessoa WHERE endereco = "Rua Plínio de Oliveira" AND cpf = 92439944769
+-- Nome de todos os alunos matriculados na turma 802
+SELECT pe.nome
+FROM aluno a 
+	JOIN pessoa pe ON a.cpfPessoa = pe.cpf
+    JOIN turmaAluno ta ON a.matricula = ta.matriculaAluno
+    JOIN turma t ON t.numero = ta.numeroTurma
+WHERE t.numero = '802';
 
-SELECT * FROM pessoa
+-- Todas pessoas que moram na Rua Plínio de Oliveira
+SELECT * FROM pessoa WHERE endereco = "Rua Plínio de Oliveira";
 
-SELECT * FROM aluno
-
-SELECT * FROM professor
-
-SELECT * FROM disciplina
-
-SELECT * FROM turma
-
-SELECT * FROM unidade
-
-SELECT * FROM curso
-
-SELECT * FROM cursoDisciplina
-
-SELECT * FROM cursoUnidade
-
-SELECT * FROM alunoCurso
-
-SELECT nome FROM pessoa
-
-SELECT matricula FROM aluno
-
-SELECT matricula FROM professor
-
-SELECT nome FROM disciplina
-
-SELECT numero FROM turma
-
-SELECT nome FROM unidade
-
-SELECT nome FROM curso
+-- Consultando dados isolados em suas tabelas:
+SELECT * FROM pessoa;
+SELECT * FROM aluno;
+SELECT * FROM professor;
+SELECT * FROM disciplina;
+SELECT * FROM turma;
+SELECT * FROM unidade;
+SELECT * FROM curso;
+SELECT * FROM cursoDisciplina;
+SELECT * FROM cursoUnidade;
+SELECT * FROM alunoCurso;
