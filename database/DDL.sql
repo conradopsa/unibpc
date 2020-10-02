@@ -46,7 +46,7 @@ CREATE TABLE turmaAluno(
     matriculaAluno INT NOT NULL,
     FOREIGN KEY (numeroTurma) REFERENCES turma(numero),
     FOREIGN KEY (matriculaAluno) REFERENCES aluno(matricula)
-)
+);
 
 CREATE TABLE unidade (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -84,9 +84,3 @@ CREATE TABLE alunoCurso (
     foreign key (alunoMatricula) references aluno(matricula),
     foreign key (cursoId) references curso(id)
 );
-
-
-
-
-
-
