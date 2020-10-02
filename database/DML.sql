@@ -1,5 +1,6 @@
-INSERT INTO pessoa(cpf, nome, endereco, telefone)
-VALUES
+use unibpc;
+
+INSERT INTO pessoa(cpf, nome, endereco, telefone) VALUES
 (92439944769, "Aparecida Sandra Rezende", "Rua Plínio de Oliveira", 2138424155),
 (93708814096,  "Antônia Mariane Elisa Duarte", "Rua Pastor Fernando Granjeiro", 9538774951),
 (16119641483, "Antônia Flávia Mirella dos Santos", "Rua J", 2727958990),
@@ -29,91 +30,89 @@ VALUES
 (17287695820, "Emanuelly Cecília Maya Caldeira", "Rua Salvador Torres Peres", 4327123359),
 (45423482100, "Ruan Bryan Enrico Melo", "Rua Botafogo", 2136650372),
 (09578342683, "Alícia Teresinha Mirella Pinto", "1ª Travessa Augusto Lacerda", 7129843297),
-(31927581710, "Samuel Theo Gomes", "Travessa Pedro Lemos", 9336489678)
+(31927581710, "Samuel Theo Gomes", "Travessa Pedro Lemos", 9336489678);
 
+INSERT INTO aluno(matricula, cpfPessoa) VALUES
+(default, 92439944769),
+(default, 93708814096),
+(default, 16119641483),
+(default, 50254029485),
+(default, 90703631780),
+(default, 57537221308),
+(default, 47719283635),
+(default, 47806439706),
+(default, 96281043901),
+(default, 71965239030),
+(default, 56986520824),
+(default, 09278548723),
+(default, 34265899315),
+(default, 98142033941),
+(default, 91967724091),
+(default, 82353644090),
+(default, 61144792622),
+(default, 18459282538),
+(default, 41905300778),
+(default, 08378084132),
+(default, 37290555422),
+(default, 19744408502),
+(default, 55828139428),
+(default, 10656095156),
+(default, 51395551740),
+(default, 74891729694),
+(default, 17287695820);
 
-INSERT INTO aluno(matricula, cpf)
-VALUES
-(1000, 92439944769),
-(1001, 93708814096),
-(1002, 16119641483),
-(1003, 50254029485),
-(1004, 90703631780),
-(1005, 57537221308),
-(1006, 47719283635),
-(1007, 47806439706),
-(1008, 96281043901),
-(1009, 71965239030),
-(1010, 56986520824),
-(1011, 09278548723),
-(1012, 34265899315),
-(1013, 98142033941),
-(1014, 91967724091),
-(1015, 82353644090),
-(1016, 61144792622),
-(1017, 18459282538),
-(1018, 41905300778),
-(1019, 08378084132),
-(1020, 37290555422),
-(1021, 19744408502),
-(1022, 55828139428),
-(1023, 10656095156),
-(1024, 51395551740),
-(1025, 74891729694),
-(1026, 17287695820)
+INSERT INTO professor(matricula, carteiraTrabalho, cpfPessoa) VALUES
+(default, 446147552, 31927581710), -- id = 1
+(default, 358252891, 09578342683), -- id = 2
+(default, 432329687, 45423482100); -- id = 3
 
-INSERT INTO professor(matricula, carteiraTrabalho, cpf)
-VALUES(2000, 446147552, 31927581710),
-(2001, 358252891, 09578342683),
-(2002, 432329687, 45423482100)
+INSERT INTO disciplina(numero, nome, matriculaProfessor) VALUES
+(1, "Modelos de Linguagem de Programação", 1),
+(2, "Gerência de Projetos", 2);
 
-INSERT INTO disciplina(numero, nome, matriculaProfessor)
-VALUES(1, "Modelos de Linguagem de Programação", 2000),
-(2, "Gerência de Projetos", 2001)
+INSERT INTO turma(numero, diaSemana, horario, sala, numeroDisciplina) VALUES
+(801, 2, '08:00:00', 101, 1),
+(802, 2, '10:00:00', 102, 2),
+(803, 3, '08:00:00', 101, 2);
 
-INSERT INTO turma(numero, diaSemana, horario, sala, numeroDisciplina)
-VALUES(801, 2, 08:00:00, 101, 1),
-(802, 2, 10:00:00, 102, 2),
-(803, 3, 08:00:00, 101, 2)
+INSERT INTO unidade(id, nome, endereco, telefone) VALUES
+(default, "Meier", "Rua Venceslau", 2125631919);
 
-INSERT INTO unidade(id, nome, endereco, telefone)
-VALUES(NEWID(), "Meier", "Rua Venceslau", 2125631919)
+INSERT INTO curso(id, cargaHoraria, nome) VALUES
+(default, 60, "Ciência da Computação");
 
-INSERT INTO curso(id, cargaHoraria, nome)
-VALUES(NEWID(), 60, "Complementar de Ciência da Computação")
+INSERT INTO cursodisciplina(id, disciplinaNumero, cursoId) VALUES
+(default, 1, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 2, (SELECT id FROM curso WHERE nome = "Ciência da Computação"));
 
-INSERT INTO cursoDisciplina(id, disciplinaNumero, cursoId)
-VALUES(NEWID(), 1, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-VALUES(NEWID(), 2, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso)
+INSERT INTO cursoUnidade(id, cursoId, unidadeId) VALUES
+(default, (SELECT id FROM curso WHERE nome = "Ciência da Computação"), (SELECT id FROM unidade WHERE nome = "Meier"));
 
-INSERT INTO cursoUnidade(id, cursoId, unidadeId)
-VALUES(NEWID(), SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso, SELECT id WHERE nome = "Meier" FROM unidade)
-
-INSERT INTO alunoCurso(id, alunoMatricula, cursoId)
-(NEWID(), 1000, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1001, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1002, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1003, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1004, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1005, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1006, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1007, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1008, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1009, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1010, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1011, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1012, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1013, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1014, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1015, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1016, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1017, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1018, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1019, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1020, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1021, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1022, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1023, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1024, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1025, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso),
-(NEWID(), 1026, SELECT id WHERE nome = "Complementar de Ciência da Computação" FROM curso)
+INSERT INTO alunoCurso(id, alunoMatricula, cursoId) VALUES
+(default, 1 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 2 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 3 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 4 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 5 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 6 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 7 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 8 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 9 , (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 10, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 11, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 12, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 13, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 14, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 15, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 16, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 17, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 18, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 19, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 20, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 21, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 22, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 23, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 24, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 25, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 26, (SELECT id FROM curso WHERE nome = "Ciência da Computação")),
+(default, 27, (SELECT id FROM curso WHERE nome = "Ciência da Computação"));
