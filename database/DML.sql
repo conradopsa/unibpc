@@ -75,6 +75,17 @@ INSERT INTO turma(numero, diaSemana, horario, sala, numeroDisciplina) VALUES
 (802, 2, '10:00:00', 102, 2),
 (803, 3, '08:00:00', 101, 2);
 
+INSERT INTO turmaAluno(id, numeroTurma, matriculaAluno) VALUES
+(default, 801, 1),
+(default, 801, 2),
+(default, 802, 3),
+(default, 802, 4),
+(default, 802, 5),
+(default, 802, 6),
+(default, 803, 7),
+(default, 803, 8),
+(default, 803, 9);
+
 INSERT INTO unidade(id, nome, endereco, telefone) VALUES
 (default, "Meier", "Rua Venceslau", 2125631919);
 

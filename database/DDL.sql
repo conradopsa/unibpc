@@ -40,6 +40,13 @@ CREATE TABLE turma (
     FOREIGN KEY (numeroDisciplina) REFERENCES disciplina(numero)
 );
 
+CREATE TABLE turmaAluno(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numeroTurma VARCHAR(255) NOT NULL,
+    matriculaAluno INT NOT NULL,
+    FOREIGN KEY (numeroTurma) REFERENCES turma(numero),
+    FOREIGN KEY (matriculaAluno) REFERENCES aluno(matricula)
+)
 
 CREATE TABLE unidade (
 	id INT AUTO_INCREMENT PRIMARY KEY,
