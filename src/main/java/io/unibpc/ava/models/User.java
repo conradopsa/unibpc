@@ -1,12 +1,15 @@
 package io.unibpc.ava.models;
 
 import javax.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "pessoa")
 public class User {
+
     @Id
     private Long cpf;
 

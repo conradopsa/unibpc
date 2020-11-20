@@ -7,6 +7,8 @@ import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.Test;
 
+import io.unibpc.ava.controllers.StudentController;
+
 public class CreateTablesTest {
 
     @Test
@@ -23,6 +25,13 @@ public class CreateTablesTest {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("unibpc");
         emf.createEntityManager();
         emf.close();
+
+    }
+
+    @Test
+    public void InsertStudentTest() {
+        StudentController sc = new StudentController();
+        sc.insertUserStudent("");
 
     }
 }
